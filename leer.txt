@@ -1,0 +1,8 @@
+Repositorio para Almacenar los Scripts que se pueden REUTILIZAR
+
+Los Scripts deben colocarce en cada una de las carpetas a las que correspondan
+
+CSS - Estilos
+JS  - Funciones JavaScripts
+PHP - Clases de php
+PYTHON - Clases y/o Scripts de PYTHON
