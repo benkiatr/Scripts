@@ -79,12 +79,12 @@ class Fechas{
 	}
 	/**
 	*	funcion que regresa la fecha con formato en texto
+	*	@String $format | 'txt' => '12 de enero del 2012 ' | '- o / '
 	*	@Date   $date   | fecha espesifica, si esta es null se toma la fecha actual
-	*	@String $format | 'text' => '12 de enero del 2012 ' | 'guion'=>'12-enero-2012'
 	*	@String $avr    | '3' abrevia los nombres a 3 letras '2 abrevia los nombres a 2 letras'
 	*	
 	**/
-	public static function getDateText($format,$avr=null,$date=null)
+	public static function getDateText($format="txt",$date=null,$avr=null)
 	{
 		$dateText = "";//texto terminado 
 		$fecha = "";//fecha de la cual se va a elaborar el texto
@@ -93,7 +93,7 @@ class Fechas{
 		}else{
 			$fecha = $date;
 		}
-		if($format=='text')
+		if($format=='txt')
 		{
 			$arrayFechas = explode('-',$fecha);
 			$dateText = $arrayFechas[2]." de ";
@@ -101,14 +101,14 @@ class Fechas{
 			$dateText .= $arrayFechas[0];
 		}else{
 			$arrayFechas = explode('-',$fecha);
-			$dateText = $arrayFechas[2]."-";
-			$dateText .=  Fechas::getNameMonth($arrayFechas[1]-1,$avr)."-";
+			$dateText = $arrayFechas[2].$format;
+			$dateText .=  Fechas::getNameMonth($arrayFechas[1]-1,$avr).$format;
 			$dateText .= $arrayFechas[0];
 		}
 		return $dateText;
 	}
 	/**
-	*	fucion para obtener el nombre del dia apartir de una fecha dada
+	*	Funcion para obtener el nombre del dia apartir de una fecha dada
 	*	@Date $date .- fecha de la cual se va a extraer le dia para obtener el nombre
 	*	@String $avr .- abreviacion del nombre del día que se va a obtener
 	*/

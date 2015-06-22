@@ -23,5 +23,3 @@ class Distanciageodesica {
 		return $km;
 	}
 }
-
-?>

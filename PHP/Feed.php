@@ -84,4 +84,3 @@ class Feed
 
 // </ad>
 
-?>
