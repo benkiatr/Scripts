@@ -138,11 +138,14 @@ class Fechas{
 	}
 	/**
 	*	funcion para sumarle dias a una fecha dada
-	*	@Date $date.- Revice la fecha a la cual se le va a sumar los dias
 	*	@Int  $days.- Recive el numero de dias que se le van a sumar
+	*	@Date $date.- Revice la fecha a la cual se le va a sumar los dias
 	*/
-	public static function addDay($date,$days)
+	public static function addDay($days,$date=null)
 	{
+		if($date==null){
+			$date = date('Y-m-d');
+		}
 		list($year,$mon,$day) = explode('-',$date);
   		return date('Y-m-d',mktime(0,0,0,$mon,$day+$days,$year));
 	}
