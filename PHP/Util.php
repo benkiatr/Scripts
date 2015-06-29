@@ -1,17 +1,19 @@
 <?php
 
 class Util {
-	// funcion para quitar numero de un string
+
+	// Funcion para quitar numeros de un String
+	// String $string - String a evaluar para quitar los numeros
+	// @return $string - Regresa el String sin los Números
 	public static function removeNumber($string)
 	{
-		$part = explode(" ",$string);
-		$totalPart = count($part);
-		$name = null;
-		for($i=0;$i<$totalPart;$i++)
+		$part = str_split($string);
+		$name = "";
+		for($i=0;$i<count($part);$i++)
 		{
 			if(!is_numeric($part[$i]))
 			{
-				$name = $name." ".$part[$i];
+				$name .= $part[$i];
 			}
 		}
 		return $name;
@@ -96,23 +98,6 @@ class Util {
 			//optenemis una letras por cada instancia;
 		}
 		return $clave;
-	}
-	// funcion para subir archivos a cualquier carpeta
-	public static function uploadFile($path,$nameFile='file',$name=null)
-	{
-		$filename="";//nombre del archivo final
-		$file = Input::file($nameFile);//sacando datos de archivos
-		if($name==null)
-		{
-			$filename = Util::key(32,7).".".$file->getClientOriginalExtension();//creando el nombre alieatorio
-		}else{
-			$filename = $name.".".$file->getClientOriginalExtension();//creando el nombre alieatorio
-		}
-		$uploadSuccess = Input::file($nameFile)->move($path, $filename);//moviendo el archivo al directorio con el nuevo nombre
-		return array(
-				'status'   => $uploadSuccess,
-				'filename' => $filename
-			);
 	}
 	// funcion para crear un directorio en la carpeta de se le mande
 	public static function createDir($path)
