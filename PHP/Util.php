@@ -2,9 +2,11 @@
 
 class Util {
 
-	// Funcion para quitar numeros de un String
-	// String $string - String a evaluar para quitar los numeros
-	// @return $string - Regresa el String sin los Números
+	/**
+	* Funcion para quitar numeros de un String
+	* String $string - String a evaluar para quitar los numeros
+	* @return $string - Regresa el String sin los Números
+	*/
 	public static function removeNumber($string)
 	{
 		$part = str_split($string);
@@ -18,7 +20,11 @@ class Util {
 		}
 		return $name;
 	}
-	// funcion que regresa el nombre del navegador
+
+    /**
+     * Funcion para regregar el nombre del navegador usado
+     * @return string
+     */
 	public static function browser()
 	{
 		$datos = $_SERVER["HTTP_USER_AGENT"];
@@ -37,7 +43,11 @@ class Util {
 		}
 		return $string;
 	}
-	// funcion que regresa la ip 
+
+    /**
+     * Funcion para regregar la ip del visitante
+     * @return mixed
+     */
 	public static function ipAdress()
 	{
 		if (!empty($_SERVER['HTTP_CLIENT_IP']))
@@ -50,7 +60,11 @@ class Util {
 		}
 		return $_SERVER['REMOTE_ADDR'];
 	}
-	// funcion que regresa el tipo de sistema operativo
+
+    /**
+     * Funcion para regresar el nombre del sistema operativo
+     * @return string
+     */
 	public static function systemOperative()
 	{
 		$datos = $_SERVER["HTTP_USER_AGENT"];
@@ -75,7 +89,13 @@ class Util {
 		}
 		return $string;
 	}
-	// funcion para generar clavez o cadenas de texto aleatorias
+
+    /**
+     * Funcion para generar convinaciones aleatorias
+     * @param int $long
+     * @param null $combina
+     * @return string
+     */
 	public static function key($long=1,$combina=null)
 	{
 		$arrayCarecter = array(
@@ -99,79 +119,46 @@ class Util {
 		}
 		return $clave;
 	}
-	// funcion para crear un directorio en la carpeta de se le mande
+
+    /**
+     * Funcion para crear directorios
+     * @param $path
+     * @return bool
+     */
 	public static function createDir($path)
-	{
-		$createSuccess = 0;
-		if(@mkdir($path,0755))
-		{
-			$createSuccess = 1;
-		}
-		return $createSuccess;
-	}
-	// funcion para borar un archivo de cualquier carpeta
+    {
+        if (@mkdir($path, 0755))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Funcion para eliminar archivos
+     * @param $pathFile
+     * @return bool
+     */
 	public static function deleteFile($pathFile)
 	{
-		if(@unlink($pathFile)){
+		if(@unlink($pathFile))
+        {
 			return true;
 		}
-		else{
-			return false;
-		}
+		return false;
 	}
-	// funcion para obtener datos de la ubicación del cliente
+
+    /**
+     * Funcion para optiener información de un visitante por medio de la ip
+     * @param string $ip
+     * @return mixed
+     */
 	public static function getDataUser($ip='')
 	{
 		$json = file_get_contents('http://ip-api.com/json/'.$ip);
 		$data = json_decode($json);
 		return $data;
 	}
-    // funcion para mostrar el status de una consilta
-    public static function labelStatus($status)
-    {
-        $arrayClass = array(
-            0=>'danger',
-            1=>'success',
-            2=>'info',
-            3=>'default'
-        );
-        $arrayText = array(
-            0=>'Inactivo',
-            1=>'Activo',
-            2=>'Programado',
-            3=>'Papelera'
-        );
-        return '<span class="label label-'.$arrayClass[$status].'">'.$arrayText[$status].'</span>';
-    }
-    // function para mostrar el status de las carteleras
-    public static function statusFace($status)
-    {
-        //0.- Pendientes 1.- Activo-Disponible 2.- bloqueado-apartado 3.- Rentado
-        $arrayClass = array(
-            0=>'info',
-            1=>'success',
-            2=>'warning',
-            3=>'danger'
-        );
-        $arrayText = array(
-            0=>'Pendiente',
-            1=>'Disponible',
-            2=>'Bloqueado',
-            3=>'Rentado'
-        );
-        return '<span class="label label-'.$arrayClass[$status].'">'.$arrayText[$status].'</span>';
-    }
-    // funcion que regresa la clase del panel para pintarlo de color
-    public static function classPanel($status)
-    {
-        $class = [
-            0 => 'bg-gray',
-            1 => 'bg-green',
-            2 => 'bg-yellow',
-            3 => 'bg-red'
-        ];
-        return $class[$status];
-    }
 }
 
 

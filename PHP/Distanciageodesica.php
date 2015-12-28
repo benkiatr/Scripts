@@ -1,4 +1,35 @@
-<?php 
+<?php
+/**
+*
+*/
+class Distance 
+{
+	public $latOrigin;
+	public $lngOrigin;
+	public $latArrival;
+	public $lngArrival;
+	public $unit = 'km';
+	private $degtorad = 0.01745329;
+	private $radtodeg = 57.29577951;
+
+	public function __construct($config = array())
+	{
+		if(!empty($config))
+		{
+
+		}else {
+
+		}
+	}
+	/**
+	* funcion para setear las cordenades de origen
+	*/
+	public function setCoordinatesOrigin($coordinates)
+	{
+		
+	}
+}
+
 class Distanciageodesica {
 
 	public $lat1;
