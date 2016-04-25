@@ -216,4 +216,25 @@ class Fechas{
 		list($year,$mon,$day) = explode('-',$date);
 		return date("Y-m-d",(mktime(0,0,0,$mon+1,1,$year)-1));
 	}
+	/**
+     * Funcion para obtener los dias transcurridos entre dos fechas
+     * @param $dateStart
+     * @param $dateEnd
+     * @return float|number
+     * @throws Exception
+     */
+    public static function getDaysPassed($dateStart,$dateEnd)
+    {
+        $dateInit = strtotime($dateStart);
+        $dateEnd = strtotime($dateEnd);
+        if($dateEnd > $dateInit)
+        {
+            $dias = ($dateInit-$dateEnd)/86400;
+            $dias = abs($dias);
+            $dias = floor($dias);
+            return intval($dias);
+        }else {
+            throw new Exception("La fecha final no puede ser menor que la fecha inicial", 1);
+        }
+    }
 }
