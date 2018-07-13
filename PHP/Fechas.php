@@ -1,8 +1,10 @@
-<?php
-class Fechas{
+<?php namespace App\Helpers;
+
+class Fechas {
 	//variables globales
 	private static $dayOfWeek = array('Domingo','Lunes','Marte','Miercoles','Jueves','Viernes','Sabado');
 	private static $monthOfYear = array('Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre');
+
 	/**
 	* funcion que regresa el nombre del dia de la semana tomando como dia 0-Domingo y 6-Sabado
 	* int $num - numero del dia que se quiere obtener
@@ -12,6 +14,7 @@ class Fechas{
 	*/
 	public static function getNameDay($num,$avr=null)
 	{
+		
 		$day = "";
 		$long = strlen(self::$dayOfWeek[$num]);
 		if($avr==3){
@@ -31,7 +34,22 @@ class Fechas{
 	* return String, nombre del mes.
 	*/
 	public static function getNameMonth($num,$avr=null)
-	{
+	{   
+		
+		$day = "";
+		$long = strlen(self::$monthOfYear[$num]);
+		if($avr==3){
+			$day = substr(self::$monthOfYear[$num],0,-($long-3));
+		}elseif ($avr==2) {
+			$day = substr(self::$monthOfYear[$num],0,-($long-2));
+		}else{
+			$day = self::$monthOfYear[$num];
+		}
+		return $day;
+	}
+	public static function getNameMonthEvent($num,$avr=null)
+	{   
+		$num = $num-1;
 		$day = "";
 		$long = strlen(self::$monthOfYear[$num]);
 		if($avr==3){
@@ -107,6 +125,32 @@ class Fechas{
 		}
 		return $dateText;
 	}
+        //formato 2018-05-23 17:41:02
+	public static function getDateHourText($date=null,$avr=null,$format=null)
+		{
+			$dateText = "";//texto terminado 
+			$fecha = "";//fecha de la cual se va a elaborar el texto
+			if($date==null){
+				$fecha = Fechas::getDate();
+			}else{
+				$fecha = $date;
+			}
+	
+				$arrayFechas = explode('-',$fecha);
+				$dia = explode(' ',$arrayFechas[2]);
+				$hora = explode(':',$dia[1]);
+				$dateText = $dia[0].'-';
+				$dateText .=  Fechas::getNameMonth($arrayFechas[1]-1,$avr).'-';
+				$dateText .= $arrayFechas[0];
+				if($format == null){
+				$dateText .= ' a ';
+				$dateText .= $hora[0].':'.$hora[1];
+			      }
+			return $dateText;
+		}
+
+
+
 	/**
 	*	Funcion para obtener el nombre del dia apartir de una fecha dada
 	*	@Date $date .- fecha de la cual se va a extraer le dia para obtener el nombre
@@ -138,14 +182,11 @@ class Fechas{
 	}
 	/**
 	*	funcion para sumarle dias a una fecha dada
-	*	@Int  $days.- Recive el numero de dias que se le van a sumar
 	*	@Date $date.- Revice la fecha a la cual se le va a sumar los dias
+	*	@Int  $days.- Recive el numero de dias que se le van a sumar
 	*/
-	public static function addDay($days,$date=null)
+	public static function addDay($date,$days)
 	{
-		if($date==null){
-			$date = date('Y-m-d');
-		}
 		list($year,$mon,$day) = explode('-',$date);
   		return date('Y-m-d',mktime(0,0,0,$mon,$day+$days,$year));
 	}
@@ -216,7 +257,7 @@ class Fechas{
 		list($year,$mon,$day) = explode('-',$date);
 		return date("Y-m-d",(mktime(0,0,0,$mon+1,1,$year)-1));
 	}
-	/**
+    /**
      * Funcion para obtener los dias transcurridos entre dos fechas
      * @param $dateStart
      * @param $dateEnd
