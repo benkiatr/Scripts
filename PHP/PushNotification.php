@@ -16,15 +16,23 @@ class PushNotification {
      */
 	public function sendNotificateFCM($dataMessages=[],$notifyDevice=[])
 	{
-		$urlFcmServices = "https://fcm.googleapis.com/fcm/send";
+        $urlFcmServices = "https://fcm.googleapis.com/fcm/send";
+        //$urlFcmServices = "https://fcm.googleapis.com/v1/projects/weatapp/messages:send";
+        $notiTitle = $dataMessages['title'];
+        $notiBody  = $dataMessages['body'];
+        $notiActions = [];
+        if($dataMessages['data']!=0){
+            $notiActions = $dataMessages['data'];
+        }
 		$fields = array(
             'registration_ids' => $notifyDevice,
             'priority' => 10,
-            'notification' => array(
-            	'title' => $dataMessages['title'], 
-            	'body'  =>  $dataMessages['body'] ,
+            'notification' => [
+            	'title' => $notiTitle, 
+            	'body'  => $notiBody,
             	'sound' => 'Default',
-            	'image' => 'Notification Image' ),
+                'image' => 'Notification Image'],
+            'data' => $notiActions
         );
         $headers = array(
             'Authorization:key=' . self::$apiServerKey,
